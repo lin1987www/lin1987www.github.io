@@ -1,0 +1,9 @@
+md to html
+https://github.com/showdownjs/showdown
+
+
+數學標記
+https://www.mathelounge.de/509545/mathjax-latex-basic-tutorial-und-referenz-deutsch
+
+
+https://www.overleaf.com/learn/latex/aligning_equations_with_amsmath
