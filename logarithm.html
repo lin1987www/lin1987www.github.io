@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="author" content="lin1987www">
+    <meta name="author" content="lin1987www" />
     <meta name="keywords" content="mathematics(math), logarithm(log)"/>
     <title>Logarithm</title>
     <script>
@@ -19,20 +19,20 @@
     <section>
         <h1>Logarithm(對數)</h1>
         <p>
-            \begin{align*}
+            \begin{align}
             b^{y} &= x & log_b^{b^y}&= log_b(x) \newline
             y&= log_b(x) \newline
-            \end{align*}
+            \end{align}
         </p>
         <p>log視為函數，b為base(底數)，y為exponent(指數)，b的y次方等於x，x是在log函數中是輸入參數，y是輸出結果。其定義為b>0且x>0時，以b為底的指數y會使其結果等於x。</p>
         <p>※可以想成把指數從斜上方拿下來，必須將底數移動到另外一邊作為log的base運算，或者是兩邊都做以b為底數的log運算，其結果一致。</p>
     </section>
     <section>
         <p>
-            \begin{align*}
+            \begin{align}
             b^{y_1} &=x_1 & y_1&=log_b(x_1) \\
             b^{y_2} &=x_2 & y_2&=log_b(x_2) \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
             \begin{align}
@@ -44,36 +44,36 @@
             \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             \frac{b^{y_1}}{b^{y_2}} &= \frac{x_1}{x_2} \\
             b^{(y_1-y_2)} &= \frac{x_1}{x_2} \\
             log_b(b^{(y_1-y_2)}) &= log_b(\frac{x_1}{x_2}) \\
             (y_1-y_2) &= log_b(\frac{x_1}{x_2}) \\
             log_b(x_1)-log_b(x_2) &= log_b(\frac{x_1}{x_2}) \tag{2} \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             b^y &= x \\
             (b^y)^n &= (x)^n \\
             b^{ny}  &= x^n \\
             log_b(b^{ny}) &=log_b(x^n) \\
             ny =  &=log_b(x^n) \\
             n log_b(x) &= lob_b(x^n) \tag{3} \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             b^y &= x \\
             log_c(b^y) &= log_c(x) \\
             y log_c(b) &= log_c(x) \\
             \frac{y log_c(b)}{log_c(b)} &= \frac{log_c(x)}{log_c(b)} \\
             y &= \frac{log_c(x)}{log_c(b)} \\
             log_b(x) &= \frac{log_c(x)}{log_c(b)}  \tag{4} \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             log_{b^n}(x^m)  &= \frac{log_c(x^m)}{log_c(b^n)}    \\
                             &= \frac{m log_c(x)}{n log_c(b)}    \\
                             &= \frac{m}{n}\frac{log_c(x)}{log_c(b)} \tag{5.a}   \\
@@ -82,23 +82,23 @@
                             &= \frac{m}{n}\frac{log_b(x)}{log_b(b)} \\
                             &= \frac{m}{n}\frac{log_b(x)}{1}    \\
                             &= \frac{m}{n} log_b(x)             \tag{5.b}   \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             b^y &=x                     \\
             b^{log_b(x)} &=x            \tag{6.a}   \\
             log_c(c^x) &= x log_c(c) = x\tag{6.b}   \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             b^{y_1} &= x_1 & y_1 &= log_b(x_1)    \\
             b^{y_2} &= x_2 & y_2 &= log_b(x_2)    \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             b^{y_1 y_2} &= b^{log_b(x_1) log_b(x_2)}   \\
             b^{log_b(x_1) log_b(x_2)} &= (b^{log_b(x_1)})^{log_b(x_2)} \\
             &= x_1^{log_b(x_2)} \\
@@ -109,21 +109,21 @@
                              &= b^{log_b(x_2) log_b(x_1)} \\
                              &= (b^{log_b(x_2)})^{log_b(x_1)} \\
                              &= x_2^{log_b(x_1)} \tag{7.2} \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             log_b(x) &= \frac{log_c(x)}{log_c(b)} \\
                      &= \frac{1}{\frac{log_c(b)}{log_c(x)}} \\
                      &= \frac{1}{log_x(b)} \tag{8} \\
-            \end{align*}
+            \end{align}
         </p>
         <p>
-            \begin{align*}
+            \begin{align}
             log_b(x_1) log_{x_1}(x_2) &= \frac {log_c(x_1)}{log_c(b)} \frac {log_c(x_2)}{log_c(x_1)} \\
                                       &= \frac {log_c(x_2)}{log_c(b)} \\
                                       &= log_b(x_2) \tag{9} \\
-            \end{align*}
+            \end{align}
         </p>
     </section>
 </article>
