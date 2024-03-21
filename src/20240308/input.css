@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.md-lg {
+    @apply md:max-lg:flex bg-sky-500 group-hover:bg-sky-700;
+}

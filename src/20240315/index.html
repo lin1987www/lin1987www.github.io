@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DPR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./output.css" rel="stylesheet">
+    <style>
+        body,
+        p {
+            margin: 0;
+        }
+
+        select {
+            background-color: #00000000;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="max-w-xs">
+        <form id="calc-ppi-form" class="w-full"
+            oninput="calcPPIForm_oninput.call(this, device, aspect_ratio, width, height, diagonal, screen__ppi, ...arguments);">
+            <fieldset class="mb-4">
+                <legend class="text-gray-700 text-lg font-bold mb-2">Device</legend>
+                <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight bg-transparent"
+                    id="device-select" name="device">
+                    <option value="" selected>None</option>
+                    <option value="1920x1080 23.8&quot;">ASUS VZ249HE Full HD IPS</option>
+                    <option value="3840x2160 31.5&quot;">BenQ EW3270U 32" 4K HDR</option>
+                    <option value="3840x2160 27&quot;">LG 27" 27UP600-W UHD 4K IPS</option>
+                    <option value="1290x2796 6.7&quot;">iPhone 15 Pro Max</option>
+                </select>
+            </fieldset>
+            <fieldset class="mb-4">
+                <legend class="text-gray-700 text-lg font-bold mb-2">Resolution</legend>
+                <label class="block text-gray-700 text-sm px-3" for="resolution-aspect-ratio">Aspect ratio</label>
+                <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight mb-2 bg-transparent"
+                    id="resolution-aspect-ratio" name="aspect_ratio">
+                    <option value="" selected>Unkown</option>
+                    <optgroup label="16:9">
+                        <option value="1280x720">1280x720 (HD, 720p)</option>
+                        <option value="1920x1080">1920x1080 (FHD, Full HD, 1080p)</option>
+                        <option value="2560x1440">2560x1440 (QHD, WQHD, Quad HD, 1440p)</option>
+                        <option value="3840x2160">3840x2160 (UHD, Ultra HD, 4K, 2160p)</option>
+                        <option value="5120x2880">5120x2880 (UHD, 5K, 2880p)</option>
+                        <option value="7680x4320">7680x4320 (8K Ultra HD, 8K, 4320p)</option>
+                    </optgroup>
+                    <optgroup label="16:10">
+                        <option value="1920x1200">1920x1200 (WUXGA)</option>
+                        <option value="2560x1600">2560x1600 (2.5K)</option>
+                    </optgroup>
+                    <optgroup label="21:9">
+                        <option value="2560x1080">2560x1080</option>
+                        <option value="3440x1440">3440x1440</option>
+                        <option value="5120x2160">5120x2160</option>
+                    </optgroup>
+                </select>
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm px-3" for="resolution-width">Width</label>
+                    <input
+                        class="peer/width shadow border rounded w-full py-2 px-3 text-gray-700 text-base leading-tight input-style"
+                        type="number" id="resolution-width" name="width" min="1" step="1" required pattern="[0-9]+"
+                        value="1920" placeholder="e.g. 1920" oninput="setCustomValidity('')"
+                        oninvalid="this.setCustomValidity('寬度只能是正整數');" />
+                    <p class="hidden peer-[&:invalid]/width:block text-xs text-pink-600 px-3">寬度只能是正整數</p>
+                </div>
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm px-3" for="resolution-height">Height</label>
+                    <input
+                        class="peer/height shadow border rounded w-full py-2 px-3 text-gray-700 text-base leading-tight input-style"
+                        type="number" id="resolution-height" name="height" min="1" step="1" required pattern="[0-9]+"
+                        value="1080" placeholder="e.g. 1080" oninput="setCustomValidity('')"
+                        oninvalid="this.setCustomValidity('長度只能是正整數');" />
+                    <p class="hidden peer-[&:invalid]/height:block text-xs text-pink-600 px-3">長度只能是正整數</p>
+                </div>
+            </fieldset>
+            <fieldset class="mb-4">
+                <legend class="text-gray-700 text-lg font-bold mb-2">Screen</legend>
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm px-3" for="screen-diagonal">Diagonal</label>
+                    <input
+                        class="peer/diagonal shadow border rounded w-full py-2 px-3 text-gray-700 text-base leading-tight input-style"
+                        type="number" id="screen-diagonal" name="diagonal" required min="0.1" step="0.1"
+                        pattern="[0-9]+(?:\.[0-9]+)?" value="21.5" list="common-screen-diagonal-inches" />
+                    <p class="hidden peer-[&:invalid]/diagonal:block text-xs text-pink-600 px-3">螢幕尺寸只能是正的數字</p>
+                    <datalist id="common-screen-diagonal-inches">
+                        <option value="7"></option>
+                        <option value="11.6"></option>
+                        <option value="13.3"></option>
+                        <option value="14"></option>
+                        <option value="15.6"></option>
+                        <option value="17.3"></option>
+                        <option value="21"></option>
+                        <option value="24"></option>
+                        <option value="27"></option>
+                    </datalist>
+                </div>
+                <label class="text-gray-700 text-base px-3" for="screen-diagonal"><abbr
+                        title="Pixels per inch">PPI</abbr></label><output
+                    class="w-full py-2 px-3 text-gray-700 text-base font-bold leading-tight mb-2" name="screen__ppi"
+                    form="calc-ppi-form" for="resolution-width resolution-height screen-diagonal" />
+            </fieldset>
+            <script>
+                "use strict";
+                const experimental__delegateEventListener = true;
+                const delegateEventListener = (function () {
+                    const eem = {}; // elementEventsMap
+                    function createEventDelegator(eventNode) {
+                        function triggerEvent() {
+                            const execTimeoutId = eventNode.lastTimeoutId;
+                            eventNode.lastTimeoutId = void 0;
+                            const countOfListeners = eventNode.eventListeners.length;
+                            for (const eventListener of eventNode.eventListeners) {
+                                eventListener.listener.apply(this, arguments);
+                            }
+                            // Remove the eventListener if the `once` property in `eventOptions` is set to `true`.
+                            for (let i = countOfListeners - 1; i > -1; i--) {
+                                const eventListener = eventNode.eventListeners[i];
+                                if (typeof eventListener.options === "object" && eventListener.options.once === true) {
+                                    eventNode.eventListeners.splice(i, 1);
+                                }
+                            }
+                            if (experimental__delegateEventListener) { console.log(`trigger timoutId: ${execTimeoutId}`); }
+                        }
+                        return function () {
+                            if (eventNode.lastTimeoutId) {
+                                clearTimeout(eventNode.lastTimeoutId);
+                                if (experimental__delegateEventListener) { console.log("clearTimeout " + eventNode.lastTimeoutId); }
+                                eventNode.lastTimeoutId = void 0;
+                            }
+                            const trigger = triggerEvent.bind(this, ...arguments);
+                            eventNode.lastTimeoutId = setTimeout(trigger, 0);
+                            if (experimental__delegateEventListener) { console.log("setTimeout " + eventNode.lastTimeoutId, arguments); }
+                        }
+                    }
+                    return function () {
+                        const args = Array.from(arguments);
+                        const target = args.shift();
+                        if (!target.id) {
+                            throw new Error("delegateEventListener: Element must have an id attribute.")
+                        }
+                        const target_id = target.id;
+                        const eventType = args.shift();
+                        const listener = args.shift();
+                        let eventOptions = args.shift();
+                        if (typeof eventOptions === "boolean") {
+                            eventOptions = {
+                                capture: eventOptions
+                            };
+                        }
+                        if (!Object.prototype.hasOwnProperty.call(eem, target_id)) {
+                            eem[target_id] = {};
+                        }
+                        const eventsMap = eem[target_id];
+                        let eventNode = eventsMap[eventType];
+                        if (!eventNode) {
+                            eventNode = {
+                                eventType,
+                                eventDelegator: null,
+                                lastTimeoutId: void 0,
+                                eventListeners: []
+                            };
+                            eventNode.eventDelegator = createEventDelegator(eventNode);
+                            eventsMap[eventType] = eventNode;
+                        }
+                        const eventListener = {
+                            listener,
+                            options: eventOptions
+                        };
+                        eventNode.eventListeners.push(eventListener);
+                        return eventNode.eventDelegator;
+                    }
+                })();
+                //
+                function calcPPI(width, height, diagonal_inches) {
+                    const diagonal_pixels = Math.sqrt(width ** 2 + height ** 2);
+                    const pixels_per_inch = diagonal_pixels / diagonal_inches;
+                    return pixels_per_inch;
+                }
+                //
+                const prev = {
+                    width: undefined,
+                    height: undefined,
+                    diagonal: undefined
+                };
+                function calcPPIForm_oninput(device, aspect_ratio, width, height, diagonal, screen__ppi, inputEvent) {
+                    if (experimental__delegateEventListener) { console.log("calc_ppi_form__oninput", inputEvent); }
+                    const inchesPattern = /\b(\d+(?:\.\d+)?)"/;
+                    const aspectRatioPattern = /(\d+)x(\d+)/;
+                    if (inputEvent.target === device || inputEvent.target === aspect_ratio) {
+                        const spec = inputEvent.target.value;
+                        //
+                        const inchesMatch = spec.match(inchesPattern);
+                        if (inchesMatch) {
+                            const diagonalInches = inchesMatch[1]
+                            diagonal.value = diagonalInches;
+                            if (experimental__delegateEventListener) {
+                                console.log("diagonal input before");
+                                diagonal.dispatchEvent(new Event("input", { bubbles: true }));
+                                console.log("diagonal input after");
+                            }
+                        }
+                        //
+                        const aspectRatioMatch = spec.match(aspectRatioPattern);
+                        if (aspectRatioMatch) {
+                            const selectedWidth = aspectRatioMatch[1];
+                            const selectedHeight = aspectRatioMatch[2];
+                            width.value = selectedWidth;
+                            height.value = selectedHeight;
+                            if (experimental__delegateEventListener) {
+                                console.log("width input before");
+                                width.dispatchEvent(new Event("input", { bubbles: true }));
+                                console.log("width input after");
+                                console.log("height input before");
+                                height.dispatchEvent(new Event("input", { bubbles: true }));
+                                console.log("height input after");
+                            }
+                        }
+                    }
+                    if (inputEvent.target !== device) {
+                        if (width.value !== prev.width || height.value !== prev.height || diagonal.value !== prev.diagonal) {
+                            device.value = "";
+                        }
+                    }
+                    if (this.checkValidity()) {
+                        aspect_ratio.value = `${width.value}x${height.value}`;
+                        if (aspect_ratio.value === "") {
+                            // If the aspect ratio does not match any option, the value will be an empty string.
+                            // To ensure the select displays the option with an empty string value, the empty string must be set again.
+                            aspect_ratio.value = "";
+                        }
+                        screen__ppi.value = Number.prototype.toFixed.call(calcPPI(width.value, height.value, diagonal.value), 2);
+                        //screen__ppi.value = Math.round(calcPPI.call(this, width.value, height.value, diagonal.value));
+                    } else {
+                        screen__ppi.value = "";
+                    }
+                    // save state
+                    prev.width = width.value;
+                    prev.height = height.value;
+                    prev.diagonal = diagonal.value;
+                }
+                // Experimental
+                const calc_ppi_form = document.getElementById("calc-ppi-form");
+                const resolution_aspect_ratio = document.getElementById("resolution-aspect-ratio");
+                const device_select = document.querySelector("#device-select");
+                if (experimental__delegateEventListener) {
+                    calcPPIForm_oninput = delegateEventListener(calc_ppi_form, "input", calcPPIForm_oninput);
+                }
+                // Simulate user trigger input event
+                if (device_select.value !== "") {
+                    device_select.dispatchEvent(new Event("input", { bubbles: true }));
+                } else if (resolution_aspect_ratio.value !== "") {
+                    resolution_aspect_ratio.dispatchEvent(new Event("input", { bubbles: true }));
+                } else {
+                    calc_ppi_form.dispatchEvent(new Event("input", { bubbles: true }));
+                }
+            </script>
+        </form>
+        <div>
+            <label for="ddpx\meter">Dots Per Pixel (dppx), Device Pixel Ratio (DPR)</label>
+            <span id="ddpx\value"></span>
+            <meter id="ddpx\meter" value="4" min="0.1" low="0.9" optimum="1" max="4" class="block w-full"></meter>
+            <script>
+                "use strict";
+                // WARNING: Avoid using the backslash `\` in the `id` attribute of an element, except for hyphens `-`.
+                // This example demonstrates how to properly escape a backslash `\` when using `document.querySelector`.
+                const ddpxMeter = document.querySelector("#ddpx\\\\meter");
+                const ddpxValueSpan = document.querySelector("#ddpx\\\\value");
+
+                let mediaQueryList;
+                function updateDPR(event) {
+                    if (mediaQueryList) {
+                        // Ensure remove listener even we have already set `true` to the `once` property of options applied to addEventListener.
+                        mediaQueryList.removeEventListener("change", updateDPR);
+                    }
+                    mediaQueryList = matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
+                    mediaQueryList.addEventListener("change", updateDPR, { once: true });
+                    const dpr = window.devicePixelRatio;
+                    ddpxMeter.value = dpr;
+                    ddpxValueSpan.textContent = dpr;
+                }
+                updateDPR();
+            </script>
+            <p>window.innerWidth (include scrollbars): <span id="window-innerWidth"></span> x <span
+                    id="window-innerHeight"></span></p>
+            <p>documentElement.clientWidth: <span id="documentElement-clientWidth"></span> x <span
+                    id="documentElement-clientHeight"></span></p>
+            <p>documentElement.offsetWidth: <span id="documentElement-offsetWidth"></span> x <span
+                    id="documentElement-offsetHeight"></span></p>
+            <script>
+                "use strict";
+
+                function initCall(func) {
+                    if (document.readyState !== "loading") {
+                        func();
+                    } else {
+                        document.addEventListener("DOMContentLoaded", function (event) {
+                            func();
+                        }, { once: true });
+                    }
+                }
+
+                const windowInnerWidthSpan = document.querySelector("#window-innerWidth");
+                const windowInnerHeightSpan = document.querySelector("#window-innerHeight");
+                const documentElementClientWidthSpan = document.querySelector("#documentElement-clientWidth");
+                const documentElementClientHeightSpan = document.querySelector("#documentElement-clientHeight");
+                //
+                const documentElementOffsetWidthSpan = document.querySelector("#documentElement-offsetWidth");
+                const documentElementOffsetHeightSpan = document.querySelector("#documentElement-offsetHeight");
+                function updateSize() {
+                    windowInnerWidthSpan.textContent = window.innerWidth;
+                    windowInnerHeightSpan.textContent = window.innerHeight;
+                    documentElementClientWidthSpan.textContent = document.documentElement.clientWidth;
+                    documentElementClientHeightSpan.textContent = document.documentElement.clientHeight;
+                    documentElementOffsetWidthSpan.textContent = document.documentElement.offsetWidth;
+                    documentElementOffsetHeightSpan.textContent = document.documentElement.offsetHeight;
+                }
+                window.addEventListener("resize", updateSize);
+                initCall(updateSize);
+            </script>
+        </div>
+    </article>
+    <div style="display: inline-block; width: 412px;background-color: aqua;">412px</div>
+
+    Dots Per Pixel (dppx), Device Pixel Ratio (DPR)
+    兩者都是以 CSS Pixel 為單位，對應實際上有多少個 dot (如果用於螢幕的話就是指pixel，如果是用於印刷的話就是dot)。
+    https://developer.mozilla.org/en-US/docs/Web/CSS/resolution#syntax
+
+    DPR(dppx) = Physical Pixels / Logical Pixels(CSS Pixels)
+    https://developer.mozilla.org/en-US/docs/Glossary/CSS_pixel
+
+    使用 id attribute 時，為了避免與 js 被識別為變數，因此加上 - hypen
+    https://google.github.io/styleguide/htmlcssguide.html#id_Attributes
+
+    DPR is calculated as DPR = Physical Pixels / Logical Pixels
+
+    display resolution(Physical Pixels)
+
+    Hello World
+
+    ppk把这个浏览器默认的viewport叫做 layout viewport。这个layout viewport的宽度可以通过 document.documentElement.clientWidth 来获取
+    然而，layout viewport 的宽度是大于浏览器可视区域的宽度的，所以我们还需要一个viewport来代表 浏览器可视区域的大小，ppk把这个viewport叫做 visual viewport。visual
+    viewport的宽度可以通过window.innerWidth 来获取
+
+    window.screen.width 實際螢幕大小
+
+    當Zoom In 的時候 畫面放大 window.innerWidth 卻會縮小?
+    http://www.quirksmode.org/mobile/viewports.html
+    Note that the measured widths and heights include the scrollbars.
+    They, too, are considered part of the inner window. (This is mostly for historical reasons.)
+
+    visual viewport = window.innerWidth
+    scrollbars + document.documentElement.clientWidth (layout viewport)
+
+    window.pageYOffset 畫面地的卷軸位置
+
+    layout viewport = document.documentElement.clientWidth
+    layout viewport
+
+    document.documentElement.offsetWidth
+    offsetWidth is a measurement in pixels of the element's CSS width, including any borders, padding, and vertical
+    scrollbars
+
+    layout viewport 通常大於 手機的螢幕大小 window.screen.width
+
+    device-width/device-height uses the same values as window.screen.width/height (the screen, in other words).
+    It works with device pixels.
+
+    visual viewport[layout viewport]
+
+    The visual viewport cannot be any larger than the content on the page.
+
+    The content's dimensions are largely dictated by the layout viewport.
+
+    The layout viewport's dimensions are set by the meta-viewport rule.
+
+    Therefore, the visual viewport's dimensions should change in reaction to changes in the meta-viewport rule.
+
+    devicePixelRatio (DPR) = 物理像素(physical pixels) / 独立像素(CSS pixel (also called logical pixel))
+
+    window.devicePixelRatio 當 Zoom In 放大的時候 會增加!
+
+    device pixel ratio (also called CSS Pixel Ratio and also referred to as dppx(Dots Per Pixel (dppx)))
+    https://stackoverflow.com/questions/31955113/what-is-different-between-devicepixelratio-and-dppx
+
+
+    css中的px就可以看做是设备的独立像素，所以通过devicePixelRatio，我们可以知道该设备上一个css像素代表多少个物理像素。
+
+    Zoom = screen.width / window.innerWidth
+</body>
+
+</html>

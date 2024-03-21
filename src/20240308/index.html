@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hello World!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <style>
+    /* https://fonts.google.com/selection/embed */
+    @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=fallback");
+
+    /* LiHei Pro 用於支援Apple */
+    /* Windows 10 以後，字重 300 以下的字體會出現渲染模糊，應確認設定成 400 以上。  */
+    /* 首頁或是 Landing Page 的介紹文字，則可以採用 175% 到 200% 行距，建立空間感。  */
+    /*  PingFang TC 與 Heiti TC */
+    /*
+      https://www.tan-studio.net/programskill/divcss/%E8%A8%AD%E8%A8%88-%E4%BD%BF%E7%94%A8-css-%E8%BC%89%E5%85%A5%E6%80%9D%E6%BA%90%E9%BB%91%E9%AB%94noto-sans-tc%E7%9A%84%E5%BF%AB%E9%80%9F%E6%96%B9%E5%BC%8F/
+      http://jinjin.mepopedia.com/~jinjin/wd/wd-15.html
+      https://simular.co/blog/post/2-%E4%B8%AD%E6%96%87-css-%E6%8E%92%E7%89%88%E5%8E%9F%E5%89%87%E6%8C%87%E5%8D%97
+    */
+
+    /*
+      https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article
+      background: right/contain content-box border-box no-repeat url('/media/examples/rain.svg') white;
+        https://developer.mozilla.org/en-US/docs/Web/CSS/background
+    */
+
+    :root {
+      --h1-font-size: 2.5rem;
+      --h2-font-size: 2rem;
+      --h3-font-size: 1.7rem;
+      --h4-font-size: 1.5rem;
+      --h5-font-size: 1.2rem;
+      --h6-font-size: 1rem;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "PingFang TC", "Heiti TC", "LiHei Pro", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 175%;
+      letter-spacing: 0;
+    }
+
+    article {
+      color: #515151;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      /* top | left and right | bottom */
+      margin: 1.375rem auto 1rem;
+    }
+
+    p {
+      margin: 1rem auto;
+    }
+
+    h1 {
+      font-size: var(--h1-font-size);
+    }
+
+    h2 {
+
+      font-size: var(--h2-font-size);
+    }
+
+    h3 {
+      font-size: var(--h3-font-size);
+    }
+
+    h4 {
+      font-size: var(--h4-font-size);
+    }
+
+    h5 {
+      font-size: var(--h5-font-size);
+    }
+
+    h6 {
+      font-size: var(--h6-font-size);
+    }
+
+    article,
+    aside {
+      margin: 0.5rem;
+    }
+
+    article>aside {
+      float: right;
+      background-color: aqua;
+    }
+  </style>
+</head>
+
+<body>
+  <article>
+    <header>
+      <h1>從我的觀點看HTML的演變</h1>
+    </header>
+    <p><a href="https://en.wikipedia.org/wiki/HTML"><abbr
+          title="Hyper Text Markup Language">HTML超文本標記語言</abbr></a>是用於建立網頁的一種<a
+        href="https://en.wikipedia.org/wiki/Markup_language">標記語言</a>，最早用於出版業中書籍、雜誌和報紙的排版上。而隨著演變用於Web上。</p>
+    <p>在不同平台上的系統開發，即使是看似相同的<abbr title="User Interface">UI</abbr>/<abbr
+        title="User Experience">UX</abbr>，所使用的程式語言卻不相同，因此大大增加了維護的成本。因此後來為了解決跨平台的問題，因此出現了Qt。</p>
+    <blockquote cite="https://www.qt.io/">
+      <h2><a href="https://www.qt.io/"><img src="Qt_logo_neon_2022.svg" alt="Qt homepage"
+          style="height: var(--h2-font-size); vertical-align: top;" />Qt</a></h2>
+      <p>Qt是一個跨平台的軟體，用來建立跨平台的<abbr
+          title="Graphical User Interfaces 圖形化使用者介面">GUI</abbr>應用程式，可運用在Linux、Windows、macOS、iOS、Android甚至在嵌入式系統中。</p>
+    </blockquote>
+    <p>但隨著技術發展，現在有基於HTML所開發的跨平台應用程式開發Electron。</p>
+    <blockquote cite="https://www.electronjs.org/">
+      <h2><a href="https://www.electronjs.org/"><img src="Electron_Software_Framework_Logo.svg" alt="Electronjs homepage"
+        style="height: var(--h2-font-size); vertical-align: top;" />Electron</a></h2>
+      <p>
+        使用Node.js作為後端的和Chomium作為前端顯示介面來建立跨平台的應用程式。
+      </p>
+    </blockquote>
+
+    <p>但是對於HTML的演變角度上，從關注於排版顯示，演變成逐漸專注於語意上的表示。其目的從以前的顯示給人看，到現在透過具有語意的element提供給搜尋引擎看。</p>
+    <p>例如說HTML4用於將字體<strong>粗體</strong>化的element&lt;b&gt;已經不再建議使用，因為它並沒有提供其他語意，現在反而建議是用其他element來表示。</p>
+    <p>在現有的規範中，逐步地對element產生新的定義，例如以前HTML4中的underline element &lt;u&gt; 已經轉變成 non-textual annotation，可以理解為用於標註些英文拼錯的單字</p>
+    <p>
+      另外從結構上也從萬用的&lt;div&gt;延伸出&lt;article&gt;、&lt;section&gt;、&lt;header&gt;和&lt;footer&gt;,諸如此類的演變都是為了強化搜尋引擎對於內容的近一步解析與理解。
+    </p>
+    <p>
+      而豐富整個畫面的CSS也從使用方法上有所不同。最早的時候強調的是語意，到後來發現有如在寫inline style一樣，後來有BEM來指定每塊區域，到現在我認為tailwindcss是最好的解決方式。
+      其中最重要的核心其實是Cohesion，當使用BEM的時候，當有兩個相同顯示區塊時，有2種寫法，一種是兩個區塊有著一樣的CSS，違反DRY的準則。選項二將兩者區塊抽象化，使用同一個CSS，這解決了DRY準則的問題。
+      但如果後來那兩個區塊中其中一個要修改，那到時候不僅要新增CSS同時也要改寫HTML，使得維護上變得麻煩。
+      不管是哪種方法BEM都是low cohesion，因為他們各自的都有著相似的CSS，BEM最大的好處就是low Specificity。
+    </p>
+    <p>這些element的演變上，即使沿用以前的方式，網頁依然能正常顯示，但就是少了一小部分致力於研究與探索的精神。</p>
+  </article>
+  <pre>
+
+html > :is(head, body)
+head > :is(meta, title, script, style, link)
+body > :is(header, main, footer)
+
+b bold(不建議使用 改用 strong)
+  strong
+i italic
+  em, cite, dfn[title]
+u underline(deprecated in HTML 4)
+  ins
+s strikethrough 
+  del
+sup superscript
+sub subscript
+mark highlight
+
+q[cite] inline
+blockquote[cite] block
+  Usually, blockquotes are rendered visually by indentation.
+
+dfn[title] italic
+abbr[title] dotted underline
+
+dl <em>definition list</em>
+dt <em>definition term</em>
+dd <em>definition description</em>
+dl > :is(dt, dd)
+dt + dd
+
+article > :is(header, aside, section, footer)
+section > :is(h1, h2, h3, h4, h5 , h6)
+
+figure > :is(img, figcaption)
+
+picture > source[media][srcset]
+picture > img:last-child
+
+:is(ol, ul) > li
+
+nav a[href]
+
+details > summary:only-child
+
+meter[min][max][low][high][optimum][value]
+progress[max][value]
+
+data[value]
+time[datetime]
+
+form > fieldset > :is(legend:first-child, input[id], label[for])
+input[id] + label[for]
+
+select > option[value]
+select > optgroup[label] > option[value]
+
+input[list] + datalist[id] > option[value]
+
+textarea
+
+video > :is(source, track)
+object[type] > param[name][value]
+
+table > :is(caption:first-child, colgroup) ~ :is(thread, tbody, tfoot)
+thead > tr > th
+:is(tbody, tfoot) > tr > td
+
+output Typically this element defines a region that will be used to display text output from some calculation that is usually performed by a client-side script (usually JavaScript).
+<form oninput="result.value=parseInt(a.value)+parseInt(b.value)">
+  <input type="range" id="a" value="50"> +
+  <input type="number" id="b" value="100"> =
+  <output name="result" for="a b"></output>
+</form>
+form[oninput] > output
+
+pre > code https://www.tutorialrepublic.com/html-reference/html-code-tag.php https://www.w3schools.com/html/html_computercode_elements.asp
+var
+kbd
+samp
+
+ruby > rp + rt + rp
+img[usemap] + map[name] > :is(area[shape][coords], area[href], area[alt])
+
+template
+dialog[open]
+hgroup > :is(h1, h2, h3, h4, h5 , h6) ~ p (使用 header 來取代)
+
+margin 只作用在 block 上!
+display: block 
+  margin
+
+Phase 1: "Semantic" CSS (styling decisions, design decision)
+  See that .text-center class? Centering text is a design decision, so this code violates "separation of concerns" because we've let styling information bleed into our HTML.
+
+  The quintessential example of this approach has always been CSS Zen Garden; a site designed to show that if you "separate your concerns", you can completely redesign a site just by swapping out the stylesheet.
+
+  引入區塊概念 但同時也隨著HTML的結構寫CSS 這導致CSS 會依賴於結構 顯示 導致無法隨意放置到其他位置上!
+  然後命名與內容直接關聯的名稱
+
+
+Phase 2: Decoupling styles from structure
+
+  BEM solving nesting CSS
+
+  將各種 classes 結合成唯一的一個  可以解決因為結構而無法移動的問題
+  但隨之而來的是 遇到相似結構時 因為將每個結構視為 唯一 因此無法進行 合理的重複使用
+
+  結構名稱不同 但卻使用幾乎相同的 css
+  Option 1: Duplicate the styles
+    可以選擇 完整複製一份 
+
+  Option 2: @extend the author bio component
+    Using @extend at all is generally not recommended, but that aside, this feels like it solves our problem right?
+
+  Option 3: Create a content-agnostic component
+
+    將class 內容抽象化 然後共用同一個 class 名稱
+    但這樣子 反而當只要修改其中一個的時候 會改到另外一個!
+
+
+  ~~"Separation of Concerns"~~ 
+  The HTML is independent; it doesn't care how you make it look, it just exposes hooks like .author-bio that the HTML controls.
+  Your CSS on the other hand is not independent; it needs to know what classes your HTML has decided to expose, and it needs to target those classes to style the HTML.
+
+  In this model, your HTML is restyleable, but your CSS is not reusable.
+  相似的CSS無法重複使用
+  
+  ~~"Mixing Concerns"~~
+  HTML that depends on CSS.
+
+  Naming your classes in a content-agnostic way after the repeating patterns in your UI (like .media-card) treats your CSS as a dependency of your HTML.
+
+  In this model, your CSS is reusable, but your HTML is not restyleable.
+
+
+  Phase 3: Content-agnostic CSS components
+
+  My goal at this point was to explicitly avoid creating classes that were based on my content, instead trying to name everything in a way that was as reusable as possible.
+
+
+  Phase 4: Content-agnostic components + utility classes
+
+  Trying to come up with these component names all of the time is exhausting.
+  
+  When you make modifiers like .actions-list--left, you're creating a whole new component modifier just to assign a single CSS property. It's already got left in the name, so you're not going to fool anyone that it's "semantic" in any way either.
+
+  m margin
+  x right left
+  y bottom top
+  max
+
+  Breakpoint prefix
+    sm small
+    md medium
+    lg large
+    xl extra large
+    2xl 2 Extra Large
+
+  Extracting classes with @apply  將 classes 合成一個 BEM
+    https://tailwindcss.com/docs/reusing-styles#extracting-classes-with-apply
+
+  What Is @type{import - JSDoc Syntax 
+    https://www.reddit.com/r/sveltejs/comments/wsna95/what_is_typeimport_in_svelte_kit_jsdoc_syntax/
+    https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html
+    https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html#type
+
+  Styling based on parent state (group-{modifier})   modifier::= hover, focus, active, odd
+    https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state
+
+  Differentiating nested groups (group/{name}, group-{modifier}/{name})
+    https://tailwindcss.com/docs/hover-focus-and-other-states#differentiating-nested-groups
+
+  Arbitrary groups (group-[{Like SCSS-Selector}](/{name})?:{modifier})
+    https://tailwindcss.com/docs/hover-focus-and-other-states#arbitrary-groups
+
+  Styling based on sibling state (peer-{modifier})
+
+  Differentiating peers (peer/{name} peer-{modifier}/{name})
+    https://tailwindcss.com/docs/hover-focus-and-other-states#differentiating-peers
+
+  The & is a special selector invented by SCSS which is used in nested selectors to refer to the outer selector.
+
+
+</pre>
+
+<div class="md-lg">
+  <!-- ... -->
+</div>
+
+[group|peer]-{modifier}
+
+
+  <p>The <a href="https://www.tutorialrepublic.com/html-reference/html-abbr-tag.php"><abbr
+        title="Hyper Text Markup Language">HTML</abbr></a> is the publishing language of the World Wide Web.</p>
+  <footer>
+    <address>
+      <p><a href="https://www.w3.org/Consortium/contact-mit">MIT</a></p>
+    </address>
+  </footer>
+  address, i, em (usually renders with the same default styling as the <i> or <em>,)
+      img + map > area
+</body>
+</html>
